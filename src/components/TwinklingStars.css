@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.sky {
+  background: linear-gradient(
+      204deg,
+      rgba(0, 0, 0, 0.4) 31.47%,
+      rgba(0, 0, 0, 0.35) 43.58%,
+      rgba(0, 0, 0, 0.27) 55.93%,
+      rgba(0, 0, 0, 0) 82.51%
+    ),
+    #100f32;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -2;
+}
+
+.conteiner_img {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  mix-blend-mode: luminosity;
+  flex-shrink: 0;
+  opacity: 0.4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+
+
+
+
+.star {
+  position: absolute;
+  background-color: #ffffff; /* White star color */
+  width: 1.5px;
+  height: 1.5px;
+  border-radius: 50%;
+  opacity: 0; /* Stars are initially hidden */
+  pointer-events: none; /* Prevent stars from blocking mouse events */
+  animation: twinkle 5s infinite; /* Twinkle animation */
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+ @media (max-width: 767px) {
+  .my-element_4 {
+    background: lightgray url("./img/1427909961.png") 50% / cover no-repeat;
+    width: 100%;
+    height: 1080px;
+  }
+  
+
+
+}
+
+
+
+  @media (min-width: 768px) {
+
+    .my-element_1 {
+      background: lightgray url("./img/1427909958.png") 50% / cover no-repeat;
+      width: 30%;
+      height: 1080px;
+      margin-left: 3.5%;
+    }
+    
+    .my-element_2 {
+      background: lightgray url("./img/1427909959.png") 50% / cover no-repeat;
+      width: 30%;
+      height: 1080px;
+      
+    }
+    
+    .my-element_3 {
+      background: lightgray url("./img/1427909960.png") 50% / cover no-repeat;
+      width: 30%;
+      height: 1080px;
+    }
+    
+
+  }
+
+@media (min-width: 1024px) {
+  .my-element_1 {
+    background: lightgray url("./img/1427909958.png") 50% / cover no-repeat;
+    width: 17%;
+    height: 1080px;
+    margin-left: 0;
+  }
+  
+  .my-element_2 {
+    background: lightgray url("./img/1427909959.png") 50% / cover no-repeat;
+    width: 17%;
+    height: 1080px;
+    
+  }
+  
+  .my-element_3 {
+    background: lightgray url("./img/1427909960.png") 50% / cover no-repeat;
+    width: 17%;
+    height: 1080px;
+  }
+  
+  .my-element_4 {
+    background: lightgray url("./img/1427909961.png") 50% / cover no-repeat;
+    width: 17%;
+    height: 1080px;
+  }
+  
+  .my-element_5 {
+    background: lightgray url("./img/323.png") 50% / cover no-repeat;
+    width: 17%;
+    height: 1080px;
+  }
+}  
