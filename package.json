@@ -1,7 +1,8 @@
 {
-  "name": "style_template",
-  "version": "0.1.0",
+  "name": "shards-gallery-mint",
+  "version": "1.0.0",
   "private": true,
+  "description": "Mint interface for Shards Gallery NFT collection on Polygon",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -13,7 +14,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -35,5 +36,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": ".",
+  "author": "ShardGallery Team",
+  "license": "MIT"
 }

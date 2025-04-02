@@ -1,47 +1,45 @@
-import React, { useEffect, useState } from "react";
-import "./TwinklingStars.css";
-import Main from './Main.jsx';
+import React, { useEffect } from 'react';
+import './TwinklingStars.css';
 
-function TwinklingStars() {
-  const [starCount, setStarCount] = useState(0);
-
+const TwinklingStars = () => {
   useEffect(() => {
-    const sky = document.querySelector(".sky");
+    const sky = document.createElement('div');
+    sky.className = 'sky';
+    document.querySelector('.App').prepend(sky);
 
-    // Function to create stars
-    function createStar() {
-      if (starCount < 120) { // Set the maximum number of stars here (e.g., 50)
-        const star = document.createElement("div");
-        star.className = "star";
-        star.style.left = `${Math.random() * 100}vw`;
-        star.style.top = `${Math.random() * 100}vh`;
-        sky.appendChild(star);
-        setStarCount((prevCount) => prevCount + 1);
-      }
+    const starsContainer = document.createElement('div');
+    starsContainer.className = 'stars-container';
+    sky.appendChild(starsContainer);
+
+    const createStar = () => {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      star.style.animationDelay = `${Math.random() * 2}s`;
+      return star;
+    };
+
+    // Create initial stars
+    for (let i = 0; i < 150; i++) {
+      starsContainer.appendChild(createStar());
     }
 
-    // Create stars at regular intervals
-    const interval = setInterval(createStar, 100);
+    // Add new stars periodically
+    const interval = setInterval(() => {
+      if (starsContainer.children.length < 200) {
+        starsContainer.appendChild(createStar());
+      }
+    }, 1000);
 
     return () => {
       clearInterval(interval);
+      sky.remove();
     };
-  }, [starCount]);
+  }, []);
 
-  return (
-    <div>
-      <div className="sky">
-        <Main />
-        <div className="conteiner_img">
-          <div class="my-element_1"></div>
-          <div class="my-element_2"></div>
-          <div class="my-element_3"></div>
-          <div class="my-element_4"></div>
-          <div class="my-element_5"></div>
-        </div>
-      </div>
-    </div>
-  );
-}
+  return null;
+};
 
 export default TwinklingStars;
