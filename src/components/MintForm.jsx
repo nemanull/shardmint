@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+import { useWallet } from '../context/WalletContext';
 import './MintForm.css';
 
-const MintForm = ({ account, setStatus }) => {
+const MintForm = () => {
+  const { account, setStatus, chainId } = useWallet();
   const [numNFTs, setNumNFTs] = useState(1);
   const [totalSupply, setTotalSupply] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMinting, setIsMinting] = useState(false);
+  const [estimatedPrice, setEstimatedPrice] = useState(null);
 
   const contractAddress = "0x80Ab03Df56e6152dB263Fd87B75163308041611D";
   const abi = [
@@ -56,6 +59,11 @@ const MintForm = ({ account, setStatus }) => {
     }
   };
 
+  // Check if the current network is Polygon Mainnet
+  const isPolygonNetwork = () => {
+    return chainId === '0x89'; // Polygon Mainnet
+  };
+
   const fetchTotalSupply = async () => {
     setIsLoading(true);
     try {
@@ -67,6 +75,24 @@ const MintForm = ({ account, setStatus }) => {
       console.error("Error fetching total supply:", error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const estimateGasPrice = async () => {
+    if (!account || !isPolygonNetwork()) return;
+    
+    try {
+      const contract = getContract();
+      if (!contract) return;
+      
+      const valueWei = ethers.utils.parseEther('1'); // Base price for 1 NFT
+      const gasPrice = await contract.provider.getGasPrice();
+      const estimatedGas = await contract.estimateGas.mint(1, { value: valueWei }).catch(() => ethers.BigNumber.from(500000)); // Fallback gas estimate
+      
+      const totalEstimated = valueWei.add(estimatedGas.mul(gasPrice));
+      setEstimatedPrice(ethers.utils.formatEther(totalEstimated));
+    } catch (error) {
+      console.error("Error estimating price:", error);
     }
   };
 
@@ -104,25 +130,18 @@ const MintForm = ({ account, setStatus }) => {
       return;
     }
 
+    if (!isPolygonNetwork()) {
+      setStatus("Please switch to Polygon Mainnet network.");
+      await switchToPolygon();
+      return;
+    }
+
     setIsMinting(true);
     try {
       const contract = getContract();
       if (!contract) {
         setStatus("Please install MetaMask to mint NFTs.");
         return;
-      }
-
-      // Check if the network is Polygon
-      const network = await contract.provider.getNetwork();
-      if (network.chainId !== 137) {
-        setStatus("Switching to Polygon network...");
-        const switched = await switchToPolygon();
-        if (!switched) {
-          setStatus("Failed to switch to Polygon network. Please switch manually.");
-          return;
-        }
-        // Wait for network switch to complete
-        await new Promise(resolve => setTimeout(resolve, 1000));
       }
 
       // Calculate total cost including gas estimate
@@ -139,6 +158,15 @@ const MintForm = ({ account, setStatus }) => {
         gasLimit = gasLimit.mul(120).div(100);
       } catch (error) {
         setStatus(handleError(error));
+        return;
+      }
+
+      // Check if user has enough funds for transaction
+      const userBalance = await contract.provider.getBalance(account);
+      const estimatedCost = totalValueWei.add(gasLimit.mul(gasPrice));
+      
+      if (userBalance.lt(estimatedCost)) {
+        setStatus(`Insufficient funds. You need at least ${ethers.utils.formatEther(estimatedCost)} MATIC for this transaction.`);
         return;
       }
 
@@ -179,8 +207,9 @@ const MintForm = ({ account, setStatus }) => {
   useEffect(() => {
     if (account) {
       fetchTotalSupply();
+      estimateGasPrice();
     }
-  }, [account]);
+  }, [account, chainId]);
 
   return (
     <div className="mint-form">
@@ -188,6 +217,8 @@ const MintForm = ({ account, setStatus }) => {
       <div className="mint-info">
         <p>1 MATIC each + gas</p>
         <p>Max. 20 per transaction</p>
+        {!isPolygonNetwork() && <p className="warning-text">Please switch to Polygon Mainnet</p>}
+        {estimatedPrice && <p className="price-text">Est. cost: ~{estimatedPrice} MATIC</p>}
         {isLoading ? (
           <p className="loading-text">Loading supply...</p>
         ) : (
@@ -197,15 +228,15 @@ const MintForm = ({ account, setStatus }) => {
 
       <div className="mint-controls">
         <button 
-          className="control-button" 
+          className="button control-button" 
           onClick={decrementCounter} 
           disabled={numNFTs <= 1 || isMinting}
         >
           -
         </button>
-        <span className="nft-count">{numNFTs}</span>
+        <span>{numNFTs}</span>
         <button 
-          className="control-button" 
+          className="button control-button" 
           onClick={incrementCounter} 
           disabled={numNFTs >= 20 || isMinting}
         >
@@ -214,18 +245,11 @@ const MintForm = ({ account, setStatus }) => {
       </div>
 
       <button 
-        className="mint-button" 
+        className="button button-primary" 
         onClick={mintNFT} 
         disabled={!account || isMinting}
       >
-        {isMinting ? (
-          <>
-            <span className="spinner"></span>
-            <span>Minting...</span>
-          </>
-        ) : (
-          "Mint NFT(s)"
-        )}
+        {isMinting ? 'Minting...' : `Mint ${numNFTs} NFT${numNFTs > 1 ? 's' : ''}`}
       </button>
     </div>
   );

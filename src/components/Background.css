@@ -1,0 +1,112 @@
+.sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    204deg,
+    rgba(0, 0, 0, 0.4) 31.47%,
+    rgba(0, 0, 0, 0.35) 43.58%,
+    rgba(0, 0, 0, 0.27) 55.93%,
+    rgba(0, 0, 0, 0) 82.51%
+  ),
+  var(--bg-dark);
+  z-index: 0;
+}
+
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.background-images {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  mix-blend-mode: luminosity;
+  opacity: 0.4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bg-element {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 20%;
+  height: 100%;
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
+}
+
+.bg-element-1 {
+  opacity: 0.4;
+  animation: fade-pulse 8s infinite alternate;
+}
+
+.bg-element-2 {
+  opacity: 0.3;
+  animation: fade-pulse 12s infinite alternate-reverse;
+}
+
+.bg-element-3 {
+  opacity: 0.35;
+  animation: fade-pulse 10s infinite alternate;
+}
+
+.bg-element-4 {
+  opacity: 0.25;
+  animation: fade-pulse 15s infinite alternate-reverse;
+}
+
+.bg-element-5 {
+  opacity: 0.3;
+  animation: fade-pulse 9s infinite alternate;
+}
+
+@keyframes fade-pulse {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.3;
+  }
+} 

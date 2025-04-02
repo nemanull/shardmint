@@ -272,6 +272,7 @@
   .middle {
     flex-direction: column;
     text-align: center;
+    padding: 20px;
   }
 
   .middle-left {

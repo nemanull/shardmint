@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Countdown from './Countdown';
 import MintForm from './MintForm';
+import { useWallet } from '../context/WalletContext';
 import './AnimatedLayout.css';
 
-const AnimatedLayout = ({ account, setStatus }) => {
+const AnimatedLayout = () => {
+  const { account } = useWallet();
   const [showMintForm, setShowMintForm] = useState(false);
 
   const toggleMintForm = () => {
@@ -24,7 +26,7 @@ const AnimatedLayout = ({ account, setStatus }) => {
 
         {!showMintForm && (
           <button 
-            className="mint-now-button" 
+            className="button button-primary mint-now-button" 
             onClick={toggleMintForm}
             disabled={!account}
           >
@@ -36,11 +38,8 @@ const AnimatedLayout = ({ account, setStatus }) => {
       <div className={`mint-section ${showMintForm ? 'slide-in' : ''}`}>
         {showMintForm && (
           <>
-            <MintForm 
-              account={account} 
-              setStatus={setStatus}
-            />
-            <button className="back-button" onClick={toggleMintForm}>
+            <MintForm />
+            <button className="button button-secondary back-button" onClick={toggleMintForm}>
               Back to Timer
             </button>
           </>

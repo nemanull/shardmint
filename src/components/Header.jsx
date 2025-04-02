@@ -5,7 +5,7 @@ import svg3 from './img/Group.svg';
 import WalletConnection from './WalletConnection';
 import './Header.css';
 
-const Header = ({ account, setAccount, setStatus }) => {
+const Header = () => {
   return (
     <div className="top">
       <h3 className="h3">Shards Gallery</h3>
@@ -40,11 +40,7 @@ const Header = ({ account, setAccount, setStatus }) => {
           </a>
         </div>
 
-        <WalletConnection 
-          account={account}
-          setAccount={setAccount}
-          setStatus={setStatus}
-        />
+        <WalletConnection />
       </div>
     </div>
   );

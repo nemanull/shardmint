@@ -1,140 +1,75 @@
 .mint-form {
   background: rgba(16, 15, 50, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  max-width: 400px;
   width: 100%;
-  max-width: 360px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   margin: 0 auto;
-  color: white;
-  animation: fadeIn 0.5s ease-in-out;
 }
 
 .mint-title {
   font-size: 28px;
   margin: 0 0 20px 0;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  background: var(--primary-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-weight: bold;
-  text-align: center;
 }
 
 .mint-info {
-  margin-bottom: 25px;
-  text-align: center;
+  margin-bottom: 30px;
 }
 
 .mint-info p {
-  margin: 8px 0;
-  color: #ccc;
-  font-size: 15px;
+  margin: 5px 0;
+  color: var(--text-dim);
 }
 
-.loading-text {
-  color: #aaa !important;
-  font-style: italic;
-}
-
-.supply-text {
+.warning-text {
+  color: #ff5555 !important;
   font-weight: bold;
-  color: #4ecdc4 !important;
+  font-size: 14px;
+}
+
+.price-text {
+  color: #22cc88 !important;
+  font-weight: bold;
 }
 
 .mint-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 25px;
-  margin-bottom: 30px;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .control-button {
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  font-size: 22px;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.control-button:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-}
-
-.control-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.nft-count {
-  font-size: 26px;
-  font-weight: bold;
-  min-width: 40px;
-  text-align: center;
-}
-
-.mint-button {
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
   border: none;
   color: white;
-  padding: 15px 30px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 20px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.mint-button:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+.loading-text {
+  font-style: italic;
+  color: var(--text-dim);
 }
 
-.mint-button:disabled {
-  background: #555;
-  cursor: not-allowed;
+.supply-text {
+  font-weight: bold;
 }
 
-.spinner {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: white;
-  animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@media (max-width: 768px) {
+  .mint-form {
+    padding: 20px;
+    max-width: 320px;
   }
 } 

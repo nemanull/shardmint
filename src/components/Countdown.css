@@ -1,84 +1,72 @@
 .countdown-container {
   display: flex;
+  gap: 20px;
   justify-content: center;
-  gap: 15px;
-  margin-top: 40px;
+  margin: 20px 0;
 }
 
 .countdown-item {
-  position: relative;
-  background: rgba(16, 15, 50, 0.8);
+  background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  padding: 15px 10px;
-  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  border-radius: 12px;
   min-width: 70px;
-  text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.countdown-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 .countdown-value {
-  display: block;
   font-size: 28px;
   font-weight: bold;
-  color: white;
+  display: block;
+  text-align: center;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 5px;
 }
 
 .countdown-label {
-  display: block;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-dim);
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-/* Animation for seconds countdown */
-.countdown-item:last-child .countdown-value {
-  position: relative;
-}
-
-.countdown-item:last-child .countdown-value::before {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30%;
-  height: 2px;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-  animation: pulse 1s infinite;
+.mint-live {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
   0% {
-    opacity: 0.5;
-    width: 30%;
+    opacity: 0.7;
   }
   50% {
     opacity: 1;
-    width: 70%;
   }
   100% {
-    opacity: 0.5;
-    width: 30%;
+    opacity: 0.7;
   }
 }
 
 @media (max-width: 768px) {
   .countdown-container {
-    flex-wrap: wrap;
+    gap: 10px;
   }
   
   .countdown-item {
     min-width: 60px;
-    padding: 10px 8px;
+    padding: 10px;
   }
   
   .countdown-value {
